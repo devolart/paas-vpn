@@ -45,7 +45,7 @@ Also save it for future use.
 
 `TAILSCALE_AUTHKEY`: Your auth key
 
-`HOSTNAME`: Unique identifier for the VPN instance (you can fill some random string here)
+`HOSTNAME`: Unique identifier for the VPN instance, do not use any spaces (you can fill some random string here)
 
 `PORT` (Optional): Port for the front-end web interface. If you're not sure, try not using this first. If it doesn't work, try using 8080 port.
 ### Post Deployment guide:
