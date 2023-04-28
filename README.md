@@ -1,12 +1,12 @@
-<h1 align="center">Heroku VPN</h1>
-<h2 align="center">Easily spin up an ephemeral VPN on heroku using tailscale under the hood</h2><br>
+<h1 align="center">PaaS VPN</h1>
+<h2 align="center">Easily spin up an ephemeral VPN on Paas via Docker using tailscale under the hood</h2><br>
 
 ### Disclaimer:
 <code>NEITHER me NOR this project shall be in any way held responsible if YOUR ACCOUNT gets banned. It is YOUR sole
 reponsibility to use this project in whatever way you may want. However I totally recommend AGAINST ABUSING these 
 services with excessive usage.</code><br>
 ### Prerequisites:
-- Free [Heroku](https://www.heroku.com/home) account
+- Any PaaS with Docker image support (whether building from GitHub repositories or public docker images)
 - Free [Tailscale](https://tailscale.com/) account<br>
 ### Pre Deployment Guide:
 1. Signup on [Tailscale](https://tailscale.com/).
@@ -16,15 +16,15 @@ services with excessive usage.</code><br>
 2. Connect atleast one device following the tailscale **Introduction guide**.
 
     ![3](/assets/3.png)
-3. Go to the **Access Controls** tab and save the following JSON into **Edit file** section, replacing <code>x0rzavi@github</code>
-with an appropriate value from **Users** tab.
+3. Go to the **Access Controls** tab and save the following JSON into **Edit file** section, replacing <code>email</code>
+with the email shown in **Users** tab (if you use GitHub login, then it will be different. Please keep that in mind).
     ```json
     {
         "acls": [
           { "action": "accept", "src": ["*"], "dst": ["*:*"] },
         ],
         "tagOwners": {
-          "tag:vpn": ["x0rzavi@github"],
+          "tag:vpn": ["email"],
         },
         "autoApprovers": {
           "exitNode": ["tag:vpn"],
@@ -34,13 +34,20 @@ with an appropriate value from **Users** tab.
 
     ![4](/assets/4.png)
     ![7](/assets/7.png)
-4. Go to **Keys** section in **Settings** tab and generate an **auth key**. Paste this key into heroku when asked for.
+4. Go to **Keys** section in **Settings** tab and generate an **auth key**. Paste this key into the auth key variable when asked for.
 Also save it for future use.
 
     ![5](/assets/5.png)
     ![6](/assets/6.png)<br>
 ### Deployment:
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)<br>
+1. Point your PaaS deployment to this GitHub repo (or fork it if needed) or this public docker image `paasvpn/paasvpn`.
+2. Set these environment variables.
+
+`TAILSCALE_AUTHKEY`: Your auth key
+
+`HOSTNAME`: Unique identifier for the VPN instance (you can fill some random string here)
+
+`PORT` (Optional): Port for the front-end web interface. If you're not sure, try not using this first. If it doesn't work, try using 8080 port.
 ### Post Deployment guide:
 1. Open tailscale client on the device you want to use VPN. (Guide shows for android)
 
@@ -55,13 +62,6 @@ Also save it for future use.
     ![D](/assets/D.jpeg)<br>
 ### Notes:
 - Make sure, you have followed the steps as precisely as possible.
-- As always, heroku dynos will sleep after a certain amount of time. This repo has no hardcoded way to circumvent that (who needs a VPN 24/7 anyways ?) but it does serve a site which you can ping. So, it is totally upto YOU how you want to keep it running. Few utilities worth noting are: 
-  - https://kaffeine.herokuapp.com/
-  - https://cron-job.org/en/
-- Each time your heroku app restarts, a new machine will pop up in tailscale dashboard and the old offline ones will disappear eventually. YOU have to make sure to choose the correct exit node each time, failing which will block your internet.
 - **[Tailscale](https://tailscale.com/)** is a great tool in itself with extensive documention, make sure to try it.<br>
-### Todo:
-- V2 with native wireguard implementation. (iff possible)
-- Support for VPN on github-actions.<br>
-### Contact:
-- [Telegram](https://t.me/mishizu)
+### Credit:
+- [Mishizu](https://t.me/mishizu) for the original repository
