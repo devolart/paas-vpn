@@ -2,9 +2,7 @@
 <h2 align="center">Easily spin up an ephemeral VPN on Paas via Docker using tailscale under the hood</h2><br>
 
 ### Disclaimer:
-<code>NEITHER me NOR this project shall be in any way held responsible if YOUR ACCOUNT gets banned. It is YOUR sole
-reponsibility to use this project in whatever way you may want. However I totally recommend AGAINST ABUSING these 
-services with excessive usage.</code><br>
+<code>NEITHER me NOR this project shall be in any way held responsible if YOUR ACCOUNT gets banned. It is YOUR sole reponsibility to use this project in whatever way you may want. However I totally recommend AGAINST ABUSING these services with excessive usage.</code><br>
 ### Prerequisites:
 - Any PaaS with Docker image support (whether building from GitHub repositories or public docker images)
 - Free [Tailscale](https://tailscale.com/) account<br>
